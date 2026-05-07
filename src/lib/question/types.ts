@@ -1,3 +1,4 @@
+// 공통
 export interface QuestionOption {
   label: string;
   text: string;
@@ -17,3 +18,20 @@ export interface QuestionData {
 }
 
 export type MajorKey = "infosec" | "software" | "it-management" | "condi";
+
+// 학과 추천용
+export interface MajorQuestionOption {
+  label: string;
+  text: string;
+  major: MajorKey;
+}
+
+export interface MajorQuestionQuestion {
+  id: number;
+  text: string;
+  options: MajorQuestionOption[];
+}
+
+export interface MajorQuestionData {
+  questions: MajorQuestionQuestion[];
+}

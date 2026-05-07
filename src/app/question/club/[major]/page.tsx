@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { use } from "react";
-import ClubQuestionView from "@/components/question/ClubQuestionView";
+import QuestionView from "@/components/question/QuestionView";
 import { getClubQuestionData, MAJOR_KEYS } from "@/data/index";
 import type { MajorKey } from "@/lib/question/types";
 
@@ -18,5 +18,5 @@ export default function ClubQuestionPage({ params }: Props) {
 
   if (!questionData) return notFound();
 
-  return <ClubQuestionView major={major as MajorKey} questionData={questionData} />;
+  return <QuestionView major={major as MajorKey} questionData={questionData} />;
 }
