@@ -47,13 +47,13 @@ export default function StartChoiceCard() {
 
         <div className="w-full flex flex-col gap-4 items-center">
           <ChoiceButton
-            href="/quiz/club"
+            href="/question/club"
             topText="관심있는 학과가 있어요"
             bottomText="나에게 맞는 전공 동아리 탐색하기"
             bgColor="bg-[rgba(0,103,172,0.3)]"
           />
           <ChoiceButton
-            href="/quiz/major"
+            href="/question/major"
             topText="가고싶은 학과를 아직 잘 모르겠어요"
             bottomText="나에게 맞는 학과 탐색하기"
             bgColor="bg-[rgba(0,160,92,0.3)]"

@@ -15,7 +15,7 @@ export default function MajorSelectOption({
     <button
       onClick={onClick}
       className={`
-        w-full rounded-[15px] px-6 py-3.75
+        w-full rounded-[15px] px-4 py-3.75
         text-base font-medium text-black
         border-2 transition-all
         ${borderColor}

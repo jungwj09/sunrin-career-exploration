@@ -11,7 +11,7 @@ export default function Home() {
           <IntroHero />
           <StartChoiceCard />
 
-          <section className="px-6">
+          <section className="px-4">
             <p className="text-sm font-regular text-black">
               본 테스트는 자신의 적성과 흥미를 가볍게 탐색해볼 수 있도록 돕기 위한 참고용입니다.
               <br />
