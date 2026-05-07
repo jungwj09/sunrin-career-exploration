@@ -4,7 +4,13 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "선린인터넷고등학교 진로체험",
   description: "나의 적성에 알맞는 학과/동아리 탐색하기",
-  viewport: "width=390, initial-scale=1.0, maximum-scale=1.0, user-scalable=no",
+};
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 };
 
 export default function RootLayout({

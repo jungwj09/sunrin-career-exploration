@@ -25,11 +25,11 @@ function ChoiceButton({
         text-center
       `}
     >
-      <p className="text-sm text-black font-medium mb-2">
+      <p className="text-sm text-black font-regular mb-2">
         {topText}
       </p>
 
-      <p className="text-sm text-black font-semibold flex justify-center items-center gap-1">
+      <p className="text-base text-black font-medium flex justify-center items-center gap-1">
         <span>→</span>
         <span>{bottomText}</span>
       </p>
@@ -41,7 +41,7 @@ export default function StartChoiceCard() {
   return (
     <section className="w-full max-w-97.5 mx-auto px-4 py-10">
       <div className="bg-[rgba(142,142,142,0.1)] px-5 py-6 flex flex-col items-center">
-        <p className="text-center text-base font-medium text-black mb-6">
+        <p className="text-center text-base font-regular text-black mb-6">
           현재 상황에 맞게 선택해보세요
         </p>
 
