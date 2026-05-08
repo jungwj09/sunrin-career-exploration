@@ -6,13 +6,14 @@ import YearBadge from "@/components/shared/YearBadge";
 import ResultRankCard from "@/components/result/ResultRankCard";
 import ResultMatchBar from "@/components/result/ResultMatchBar";
 import ResultCta from "@/components/result/ResultCta";
-import ResultHomeButton from "@/components/result/ResultHomeButton";
 import { calcMajorScore, scoreToRanked } from "@/lib/question/calculateScore";
 import { buildMajorResults, getClubHref } from "@/lib/question/majorResultHelpers";
 import majorQuestionsRaw from "@/data/major/questions.json";
 import type { MajorQuestionData } from "@/lib/question/types";
 
 const majorQuestions = majorQuestionsRaw as MajorQuestionData;
+
+// questions.json의 option.major 값 전체 목록
 const ALL_MAJOR_IDS = ["infosec", "software", "it-management", "design"];
 
 export default function MajorResultView() {
@@ -29,7 +30,7 @@ export default function MajorResultView() {
     return buildMajorResults(ranked);
   }, [answers]);
 
-  const topResult = results[0];
+  const topResults = results.filter((r) => r.rank === 1);
 
   const matchBarItems = results.map((r) => ({
     label: r.label,
@@ -59,15 +60,14 @@ export default function MajorResultView() {
 
           <ResultMatchBar items={matchBarItems} />
 
-          {topResult && (
+          {topResults.map((result) => (
             <ResultCta
-              majorLabel={topResult.label}
-              href={getClubHref(topResult.id)}
-              accentColor={`var(${topResult.colorVar})`}
+              key={result.id}
+              majorLabel={result.label}
+              href={getClubHref(result.id)}
+              accentColor={`var(${result.colorVar})`}
             />
-          )}
-
-          <ResultHomeButton />
+          ))}
         </main>
       </div>
     </div>
