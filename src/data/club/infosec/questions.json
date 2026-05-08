@@ -1,0 +1,106 @@
+{
+  "major": "infosec",
+  "majorLabel": "정보보호과",
+  "questions": [
+    {
+      "id": 1,
+      "text": "내가 만든 것이 잘 돌아가고 있을 때, 가장 신경 쓰이는 건?",
+      "options": [
+        { "label": "A", "text": "갑자기 멈추거나 느려지는 일 없이 계속 안정적인지", "club": "Teamlog" },
+        { "label": "B", "text": "예상한 패턴대로 결과가 나오고 있는지", "club": "Iris" },
+        { "label": "C", "text": "외부에서 건드려도 흔들리지 않는지", "club": "Layer7" },
+        { "label": "D", "text": "더 개선할 수 있는 부분이 남아 있는지", "club": "UNIFOX" }
+      ]
+    },
+    {
+      "id": 2,
+      "text": "문제가 생겼을 때 나는 어떻게 접근하나?",
+      "options": [
+        { "label": "A", "text": "어디서부터 흐름이 끊겼는지 차근차근 따라가본다", "club": "Teamlog" },
+        { "label": "B", "text": "비슷한 상황에서 어떤 패턴이 반복됐는지 살펴본다", "club": "Iris" },
+        { "label": "C", "text": "누군가 의도적으로 건드렸다면 어디를 노렸을지 생각해본다", "club": "Layer7" },
+        { "label": "D", "text": "다양한 방법을 빠르게 시도해보며 되는 걸 찾는다", "club": "UNIFOX" }
+      ]
+    },
+    {
+      "id": 3,
+      "text": "작업 중 가장 집중이 잘 되는 순간은?",
+      "options": [
+        { "label": "A", "text": "복잡하게 연결된 흐름이 막힘없이 맞아떨어질 때", "club": "Teamlog" },
+        { "label": "B", "text": "흩어진 정보들 사이에서 규칙이 보이기 시작할 때", "club": "Iris" },
+        { "label": "C", "text": "빈틈을 하나씩 찾아서 막아가는 과정에서", "club": "Layer7" },
+        { "label": "D", "text": "몰랐던 분야를 새로 배우며 연결고리가 생길 때", "club": "UNIFOX" }
+      ]
+    },
+    {
+      "id": 4,
+      "text": "결과물이 완성됐을 때 가장 뿌듯한 말은?",
+      "options": [
+        { "label": "A", "text": "\"이거 한 번도 안 터지고 계속 잘 돌아가네\"", "club": "Teamlog" },
+        { "label": "B", "text": "\"어떻게 이런 걸 찾아낸 거야?\"", "club": "Iris" },
+        { "label": "C", "text": "\"이렇게 꼼꼼하게 막아놨어?\"", "club": "Layer7" },
+        { "label": "D", "text": "\"이것저것 다 할 줄 알아?\"", "club": "UNIFOX" }
+      ]
+    },
+    {
+      "id": 5,
+      "text": "팀 프로젝트에서 내가 자꾸 신경 쓰게 되는 부분은?",
+      "options": [
+        { "label": "A", "text": "전체가 끊김 없이 연결되어 안정적으로 운영되는지", "club": "Teamlog" },
+        { "label": "B", "text": "수집한 정보나 결과가 정확한지", "club": "Iris" },
+        { "label": "C", "text": "우리가 놓친 빈틈이 없는지", "club": "Layer7" },
+        { "label": "D", "text": "한 방향만 고집하다가 더 좋은 방법을 놓치는 건 아닌지", "club": "UNIFOX" }
+      ]
+    },
+    {
+      "id": 6,
+      "text": "평소에 무언가를 경험할 때 자연스럽게 드는 생각은?",
+      "options": [
+        { "label": "A", "text": "\"이게 갑자기 안 되면 어떻게 복구하지?\"", "club": "Teamlog" },
+        { "label": "B", "text": "\"이 결과, 왜 이렇게 나온 거지? 규칙이 있을 것 같은데\"", "club": "Iris" },
+        { "label": "C", "text": "\"여기, 누가 마음먹고 건드리면 뚫릴 수 있지 않을까?\"", "club": "Layer7" },
+        { "label": "D", "text": "\"이 방법 말고 다른 방식으로도 할 수 있지 않을까?\"", "club": "UNIFOX" }
+      ]
+    },
+    {
+      "id": 7,
+      "text": "내가 더 오래 붙잡고 싶은 작업은?",
+      "options": [
+        { "label": "A", "text": "전체 흐름이 안정적으로 유지되도록 조율하는 작업", "club": "Teamlog" },
+        { "label": "B", "text": "데이터를 들여다보며 의미 있는 것을 건져내는 작업", "club": "Iris" },
+        { "label": "C", "text": "허점을 찾고, 막고, 다시 테스트해보는 작업", "club": "Layer7" },
+        { "label": "D", "text": "새로운 방법을 계속 탐색하며 익혀가는 작업", "club": "UNIFOX" }
+      ]
+    },
+    {
+      "id": 8,
+      "text": "친구가 내 결과물에 \"왜 이렇게 만들었어?\"라고 물었을 때 내 대답은?",
+      "options": [
+        { "label": "A", "text": "\"나중에 문제 생겼을 때 바로 찾을 수 있어야 해서\"", "club": "Teamlog" },
+        { "label": "B", "text": "\"이 패턴이 반복되더라고, 그래서 이렇게 했어\"", "club": "Iris" },
+        { "label": "C", "text": "\"여기를 이렇게 안 해두면 나중에 뚫릴 수 있거든\"", "club": "Layer7" },
+        { "label": "D", "text": "\"이것저것 해봤는데 이게 제일 나았어\"", "club": "UNIFOX" }
+      ]
+    },
+    {
+      "id": 9,
+      "text": "내가 더 재미있게 느끼는 과정은?",
+      "options": [
+        { "label": "A", "text": "복잡한 연결을 정리해서 안정적인 흐름을 만드는 과정", "club": "Teamlog" },
+        { "label": "B", "text": "여러 정보를 모아서 패턴을 발견하는 과정", "club": "Iris" },
+        { "label": "C", "text": "허점을 발견하고 완전히 막아냈을 때의 과정", "club": "Layer7" },
+        { "label": "D", "text": "처음 보는 분야를 빠르게 파악해가는 과정", "club": "UNIFOX" }
+      ]
+    },
+    {
+      "id": 10,
+      "text": "나와 더 잘 맞는 작업 환경은?",
+      "options": [
+        { "label": "A", "text": "내가 만든 것이 실제로 운영되며 안정성을 확인할 수 있는 환경", "club": "Teamlog" },
+        { "label": "B", "text": "다양한 데이터와 결과를 비교하며 분석할 수 있는 환경", "club": "Iris" },
+        { "label": "C", "text": "공격과 방어를 반복하며 완성도를 높일 수 있는 환경", "club": "Layer7" },
+        { "label": "D", "text": "여러 분야를 넘나들며 폭넓게 탐색할 수 있는 환경", "club": "UNIFOX" }
+      ]
+    }
+  ]
+}
