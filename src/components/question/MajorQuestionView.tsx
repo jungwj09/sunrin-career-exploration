@@ -14,10 +14,13 @@ interface MajorQuestionViewProps {
   resultPath: string;
 }
 
-export default function MajorQuestionView({ questions, accentColor, resultPath }: MajorQuestionViewProps) {
+export default function MajorQuestionView({
+  questions,
+  accentColor,
+  resultPath,
+}: MajorQuestionViewProps) {
   const router = useRouter();
   const [currentIndex, setCurrentIndex] = useState(0);
-  // answers[questionIndex] = optionIndex (선택한 선지 인덱스)
   const [answers, setAnswers] = useState<(number | null)[]>(
     Array(questions.length).fill(null)
   );
@@ -48,8 +51,10 @@ export default function MajorQuestionView({ questions, accentColor, resultPath }
     if (currentIndex < total - 1) {
       setCurrentIndex((i) => i + 1);
     } else {
-      // TODO: 결과 페이지로 이동 (로직 추후 구현)
-      router.push(resultPath);
+      const answersParam = answers
+        .map((a) => (a === null ? "" : String(a)))
+        .join(",");
+      router.push(`${resultPath}?answers=${answersParam}`);
     }
   };
 

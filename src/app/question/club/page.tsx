@@ -26,10 +26,10 @@ const MAJORS = [
     href: "/question/club/it-management",
   },
   {
-    id: "condi",
+    id: "design",
     label: "콘텐츠디자인과",
     borderColor: "border-[var(--cd)]",
-    href: "/question/club/condi",
+    href: "/question/club/design",
   },
 ];
 

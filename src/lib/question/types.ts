@@ -17,7 +17,7 @@ export interface QuestionData {
   questions: QuestionQuestion[];
 }
 
-export type MajorKey = "infosec" | "software" | "it-management" | "condi";
+export type MajorKey = "infosec" | "software" | "it-management" | "design";
 
 // 학과 추천용
 export interface MajorQuestionOption {

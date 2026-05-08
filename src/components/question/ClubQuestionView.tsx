@@ -12,7 +12,7 @@ const ACCENT_COLOR: Record<MajorKey, string> = {
   infosec: "var(--infosec)",
   software: "var(--sw)",
   "it-management": "var(--it-manage)",
-  condi: "var(--cd)",
+  design: "var(--cd)",
 };
 
 interface ClubQuestionViewProps {
@@ -20,10 +20,12 @@ interface ClubQuestionViewProps {
   questionData: QuestionData;
 }
 
-export default function ClubQuestionView({ major, questionData }: ClubQuestionViewProps) {
+export default function ClubQuestionView({
+  major,
+  questionData,
+}: ClubQuestionViewProps) {
   const router = useRouter();
   const [currentIndex, setCurrentIndex] = useState(0);
-  // answers[questionIndex] = optionIndex (선택한 선지 인덱스)
   const [answers, setAnswers] = useState<(number | null)[]>(
     Array(questionData.questions.length).fill(null)
   );
@@ -55,8 +57,10 @@ export default function ClubQuestionView({ major, questionData }: ClubQuestionVi
     if (currentIndex < total - 1) {
       setCurrentIndex((i) => i + 1);
     } else {
-      // TODO: 결과 페이지로 이동 (로직 추후 구현)
-      router.push(`/result/club/${major}`);
+      const answersParam = answers
+        .map((a) => (a === null ? "" : String(a)))
+        .join(",");
+      router.push(`/result/club/${major}?answers=${answersParam}`);
     }
   };
 
