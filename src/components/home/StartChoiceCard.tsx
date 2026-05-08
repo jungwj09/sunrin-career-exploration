@@ -25,11 +25,11 @@ function ChoiceButton({
         text-center
       `}
     >
-      <p className="text-sm text-black font-regular mb-2">
+      <p className="text-base text-black font-regular mb-2">
         {topText}
       </p>
 
-      <p className="text-base text-black font-medium flex justify-center items-center gap-1">
+      <p className="text-base text-black font-semibold flex justify-center items-center gap-1">
         <span>→</span>
         <span>{bottomText}</span>
       </p>

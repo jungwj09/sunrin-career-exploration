@@ -69,36 +69,38 @@ export default function ClubQuestionView({
       <div className="flex flex-col flex-1 w-full max-w-97.5 mx-auto">
         <YearBadge align="center" />
 
-        <main className="flex flex-col flex-1 px-4 pt-6 gap-4">
-          <QuestionProgress
-            current={currentIndex + 1}
-            total={total}
-            accentColor={accentColor}
-          />
+        <main className="flex flex-col flex-1 px-4 pt-6">
+          <div className="flex flex-col gap-4">
+            <QuestionProgress
+              current={currentIndex + 1}
+              total={total}
+              accentColor={accentColor}
+            />
 
-          <h2 className="text-xl font-semibold text-black">
-            {currentQuestion.text}
-          </h2>
+            <h2 className="text-xl font-semibold text-black">
+              {currentQuestion.text}
+            </h2>
 
-          <div className="flex flex-col gap-3">
-            {currentQuestion.options.map((option, i) => (
-              <QuestionOptionItem
-                key={i}
-                index={i}
-                text={option.text}
-                selected={currentAnswer === i}
-                onClick={() => handleSelect(i)}
-                accentColor={accentColor}
-              />
-            ))}
+            <div className="flex flex-col gap-4">
+              {currentQuestion.options.map((option, i) => (
+                <QuestionOptionItem
+                  key={i}
+                  index={i}
+                  text={option.text}
+                  selected={currentAnswer === i}
+                  onClick={() => handleSelect(i)}
+                  accentColor={accentColor}
+                />
+              ))}
+            </div>
           </div>
-        </main>
 
-        <QuestionFooterNav
-          onPrev={handlePrev}
-          onNext={handleNext}
-          canNext={currentAnswer !== null}
-        />
+          <QuestionFooterNav
+            onPrev={handlePrev}
+            onNext={handleNext}
+            canNext={currentAnswer !== null}
+          />
+        </main>
       </div>
     </div>
   );
