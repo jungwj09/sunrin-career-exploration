@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import YearBadge from "@/components/shared/YearBadge";
+import HomeButton from "@/components/shared/HomeButton";
 import MajorSelectOption from "@/components/question/MajorSelectOption";
 import QuestionFooterNav from "@/components/question/QuestionFooterNav";
 
@@ -52,6 +53,8 @@ export default function ClubMajorSelectPage() {
     <div className="flex flex-col min-h-screen bg-white">
       <div className="flex flex-col flex-1 w-full max-w-97.5 mx-auto">
         <YearBadge align="center" />
+        
+        <HomeButton />
 
         <main className="flex flex-col px-4 pt-6">
           <h2 className="text-xl font-semibold text-black mb-4 text-center">

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import YearBadge from "@/components/shared/YearBadge";
+import HomeButton from "@/components/shared/HomeButton";
 import QuestionProgress from "@/components/question/QuestionProgress";
 import QuestionOptionItem from "@/components/question/QuestionOptionItem";
 import QuestionFooterNav from "@/components/question/QuestionFooterNav";
@@ -62,6 +63,8 @@ export default function MajorQuestionView({
     <div className="flex flex-col min-h-screen bg-white">
       <div className="flex flex-col flex-1 w-full max-w-97.5 mx-auto">
         <YearBadge align="center" />
+        
+        <HomeButton />
 
         <main className="flex flex-col flex-1 px-4 pt-6">
           <div className="flex flex-col gap-4">
