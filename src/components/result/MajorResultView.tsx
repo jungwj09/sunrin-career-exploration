@@ -6,14 +6,13 @@ import YearBadge from "@/components/shared/YearBadge";
 import ResultRankCard from "@/components/result/ResultRankCard";
 import ResultMatchBar from "@/components/result/ResultMatchBar";
 import ResultCta from "@/components/result/ResultCta";
+import ResultHomeButton from "@/components/result/ResultHomeButton";
 import { calcMajorScore, scoreToRanked } from "@/lib/question/calculateScore";
 import { buildMajorResults, getClubHref } from "@/lib/question/majorResultHelpers";
 import majorQuestionsRaw from "@/data/major/questions.json";
 import type { MajorQuestionData } from "@/lib/question/types";
 
 const majorQuestions = majorQuestionsRaw as MajorQuestionData;
-
-// questions.json의 option.major 값 전체 목록
 const ALL_MAJOR_IDS = ["infosec", "software", "it-management", "design"];
 
 export default function MajorResultView() {
@@ -64,8 +63,11 @@ export default function MajorResultView() {
             <ResultCta
               majorLabel={topResult.label}
               href={getClubHref(topResult.id)}
+              accentColor={`var(${topResult.colorVar})`}
             />
           )}
+
+          <ResultHomeButton />
         </main>
       </div>
     </div>

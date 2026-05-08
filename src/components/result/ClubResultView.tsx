@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import YearBadge from "@/components/shared/YearBadge";
 import ResultRankCard from "@/components/result/ResultRankCard";
 import ResultMatchBar from "@/components/result/ResultMatchBar";
+import ResultHomeButton from "@/components/result/ResultHomeButton";
 import { calcClubScore, scoreToRanked } from "@/lib/question/calculateScore";
 import { buildClubResults } from "@/lib/question/clubResultHelpers";
 import type { QuestionData } from "@/lib/question/types";
@@ -13,14 +14,10 @@ import type { ClubProfile } from "@/lib/question/clubResultHelpers";
 interface ClubResultViewProps {
   questionData: QuestionData;
   profiles: ClubProfile[];
-  accentColor: string; // "var(--sw)" 등
+  accentColor: string;
 }
 
-export default function ClubResultView({
-  questionData,
-  profiles,
-  accentColor,
-}: ClubResultViewProps) {
+export default function ClubResultView({ questionData, profiles, accentColor }: ClubResultViewProps) {
   const searchParams = useSearchParams();
   const answersParam = searchParams.get("answers") ?? "";
 
@@ -60,7 +57,9 @@ export default function ClubResultView({
             />
           ))}
 
-          <ResultMatchBar items={matchBarItems} />
+          <ResultMatchBar items={matchBarItems} title="동아리별 적합도 분포" />
+
+          <ResultHomeButton />
         </main>
       </div>
     </div>

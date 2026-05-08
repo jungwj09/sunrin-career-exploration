@@ -1,17 +1,18 @@
 interface MatchBarItem {
   label: string;
   percent: number;
-  color: string; // CSS color string (e.g. "var(--sw)")
+  color: string;
 }
 
 interface ResultMatchBarProps {
   items: MatchBarItem[];
+  title?: string;
 }
 
-export default function ResultMatchBar({ items }: ResultMatchBarProps) {
+export default function ResultMatchBar({ items, title = "학과별 적합도 분포" }: ResultMatchBarProps) {
   return (
     <div className="bg-white rounded-2xl border border-gray-200 px-5 py-5 flex flex-col gap-3">
-      <h3 className="text-base font-semibold text-black mb-1">학과별 적합도 분포</h3>
+      <h3 className="text-base font-semibold text-black mb-1">{title}</h3>
       {items.map((item, i) => (
         <div key={item.label} className="flex items-center gap-3">
           <span className="text-sm text-gray-500 w-4 shrink-0">{i + 1}</span>
