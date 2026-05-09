@@ -21,6 +21,7 @@ export default function AppHeader({
             width={22}
             height={22}
             className="shrink-0"
+            loading="eager"
           />
 
           <span className="text-base font-semibold text-black tracking-tight">
