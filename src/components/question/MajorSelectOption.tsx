@@ -1,6 +1,7 @@
 interface MajorSelectOptionProps {
   label: string;
   borderColor: string;
+  selectedBgColor: string; // ex. "rgba(228, 100, 0, 0.3)"
   selected: boolean;
   onClick: () => void;
 }
@@ -8,6 +9,7 @@ interface MajorSelectOptionProps {
 export default function MajorSelectOption({
   label,
   borderColor,
+  selectedBgColor,
   selected,
   onClick,
 }: MajorSelectOptionProps) {
@@ -19,8 +21,8 @@ export default function MajorSelectOption({
         text-base font-medium text-black
         border-2 transition-all
         ${borderColor}
-        ${selected ? "bg-[rgba(142,142,142,0.3)]" : "bg-white"}
       `}
+      style={selected ? { backgroundColor: selectedBgColor } : { backgroundColor: "white" }}
     >
       {label}
     </button>

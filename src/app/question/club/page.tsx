@@ -12,24 +12,28 @@ const MAJORS = [
     id: "infosec",
     label: "정보보호과",
     borderColor: "border-[var(--infosec)]",
+    selectedBgColor: "rgba(228, 100, 0, 0.3)",
     href: "/question/club/infosec",
   },
   {
     id: "software",
     label: "소프트웨어과",
     borderColor: "border-[var(--sw)]",
+    selectedBgColor: "rgba(245, 176, 0, 0.3)",
     href: "/question/club/software",
   },
   {
     id: "it-management",
     label: "IT경영과",
     borderColor: "border-[var(--it-manage)]",
+    selectedBgColor: "rgba(0, 175, 110, 0.3)",
     href: "/question/club/it-management",
   },
   {
     id: "design",
     label: "콘텐츠디자인과",
     borderColor: "border-[var(--cd)]",
+    selectedBgColor: "rgba(39, 106, 173, 0.3)",
     href: "/question/club/design",
   },
 ];
@@ -67,17 +71,20 @@ export default function ClubMajorSelectPage() {
                 key={major.id}
                 label={major.label}
                 borderColor={major.borderColor}
+                selectedBgColor={major.selectedBgColor}
                 selected={selected === major.id}
                 onClick={() => setSelected(major.id)}
               />
             ))}
           </div>
         </main>
-        <QuestionFooterNav
-          onPrev={handleBack}
-          onNext={handleNext}
-          canNext={selected !== null}
-        />
+        <div className="px-4">
+          <QuestionFooterNav
+            onPrev={handleBack}
+            onNext={handleNext}
+            canNext={selected !== null}
+          />
+        </div>
       </div>
     </div>
   );

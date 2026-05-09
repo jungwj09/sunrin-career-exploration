@@ -87,11 +87,11 @@ export default function MajorQuestionView({
                   selected={currentAnswer === i}
                   onClick={() => handleSelect(i)}
                   accentColor={accentColor}
+                  selectedBgColor="rgba(241, 89, 35, 0.30)"
                 />
               ))}
             </div>
           </div>
-
           <QuestionFooterNav
             onPrev={handlePrev}
             onNext={handleNext}

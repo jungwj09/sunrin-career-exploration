@@ -16,6 +16,13 @@ const ACCENT_COLOR: Record<MajorKey, string> = {
   design: "var(--cd)",
 };
 
+const SELECTED_BG_COLOR: Record<MajorKey, string> = {
+  infosec: "rgba(228, 100, 0, 0.3)",
+  software: "rgba(245, 176, 0, 0.3)",
+  "it-management": "rgba(0, 175, 110, 0.3)",
+  design: "rgba(39, 106, 173, 0.3)",
+};
+
 interface ClubQuestionViewProps {
   major: MajorKey;
   questionData: QuestionData;
@@ -32,6 +39,7 @@ export default function ClubQuestionView({
   );
 
   const accentColor = ACCENT_COLOR[major];
+  const selectedBgColor = SELECTED_BG_COLOR[major];
   const currentQuestion = questionData.questions[currentIndex];
   const currentAnswer = answers[currentIndex];
   const total = questionData.questions.length;
@@ -93,11 +101,11 @@ export default function ClubQuestionView({
                   selected={currentAnswer === i}
                   onClick={() => handleSelect(i)}
                   accentColor={accentColor}
+                  selectedBgColor={selectedBgColor}
                 />
               ))}
             </div>
           </div>
-
           <QuestionFooterNav
             onPrev={handlePrev}
             onNext={handleNext}
