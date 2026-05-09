@@ -9,12 +9,13 @@ export default function Pill({ label, borderColor, variant = "tag" }: PillProps)
   return (
     <span
       className={`inline-flex items-center px-3 py-1 rounded-full bg-white text-sm text-black ${
-        isHeader ? "font-semibold border-2" : "font-regular border"
+        isHeader ? "font-semibold border-2 shadow-sm" : "font-medium border"
       }`}
       style={{
         borderColor: isHeader
           ? (borderColor ?? "#d1d5db")
           : "rgba(142, 142, 142, 0.50)",
+        boxShadow: isHeader ? `0 1px 4px ${borderColor}22` : undefined,
       }}
     >
       {label}

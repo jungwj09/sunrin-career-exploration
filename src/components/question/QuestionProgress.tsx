@@ -19,7 +19,7 @@ export default function QuestionProgress({
       </div>
 
       <div className="flex items-center gap-1.25">
-        <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
+        <div className="flex-1 h-2 bg-[rgba(142,142,142,0.2)] rounded-full overflow-hidden">
           <div
             className="h-full rounded-full transition-all duration-300"
             style={{

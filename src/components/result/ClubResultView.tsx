@@ -1,7 +1,7 @@
 "use client";
 
-import { useMemo } from "react";
-import { useSearchParams } from "next/navigation";
+import { useMemo, useEffect, useState, startTransition } from "react";
+import { useRouter } from "next/navigation";
 import YearBadge from "@/components/shared/YearBadge";
 import ResultRankCard from "@/components/result/ResultRankCard";
 import ResultMatchBar from "@/components/result/ResultMatchBar";
@@ -17,20 +17,37 @@ interface ClubResultViewProps {
   accentColor: string;
 }
 
-export default function ClubResultView({ questionData, profiles, accentColor }: ClubResultViewProps) {
-  const searchParams = useSearchParams();
-  const answersParam = searchParams.get("answers") ?? "";
+export default function ClubResultView({ profiles, accentColor }: ClubResultViewProps) {
+  const router = useRouter();
+  const [answers, setAnswers] = useState<(string | null)[] | null>(null);
 
-  const answers = useMemo(() => {
-    return answersParam.split(",").map((v) => (v === "" ? null : Number(v)));
-  }, [answersParam]);
+  useEffect(() => {
+    const raw = sessionStorage.getItem("club_answers");
+    if (!raw) {
+      // 답안 없으면 홈으로
+      router.replace("/");
+      return;
+    }
+    try {
+      const parsed = JSON.parse(raw);
+      startTransition(() => {
+        setAnswers(parsed);
+      });
+    } catch (error) {
+      console.error("Failed to parse club answers:", error);
+      router.replace("/");
+    }
+  }, [router]);
 
   const results = useMemo(() => {
+    if (!answers) return [];
     const allClubIds = profiles.map((p) => p.id);
-    const score = calcClubScore(answers, questionData.questions);
+    const score = calcClubScore(answers);
     const ranked = scoreToRanked(score, allClubIds);
     return buildClubResults(ranked, profiles);
-  }, [answers, questionData, profiles]);
+  }, [answers, profiles]);
+
+  if (!answers) return null;
 
   const matchBarItems = results.map((r) => ({
     label: r.label,

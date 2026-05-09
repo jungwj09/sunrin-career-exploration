@@ -4,6 +4,7 @@ interface QuestionOptionItemProps {
   selected: boolean;
   onClick: () => void;
   accentColor?: string;
+  selectedBgColor?: string; // ex. "rgba(228, 100, 0, 0.3)"
 }
 
 export default function QuestionOptionItem({
@@ -12,6 +13,7 @@ export default function QuestionOptionItem({
   selected,
   onClick,
   accentColor = "var(--sunrin-green)",
+  selectedBgColor = "rgba(0, 160, 92, 0.3)",
 }: QuestionOptionItemProps) {
   return (
     <button
@@ -19,11 +21,12 @@ export default function QuestionOptionItem({
       className={`
         w-full flex items-start gap-2.5 px-2.5 py-3.75
         rounded-[15px] text-left transition-all
-        bg-[rgba(142,142,142,0.15)]
         border-2
-        ${selected ? "bg-white" : "border-transparent"}
       `}
-      style={selected ? { borderColor: accentColor } : {}}
+      style={{
+        backgroundColor: selected ? selectedBgColor : "rgba(142, 142, 142, 0.15)",
+        borderColor: selected ? accentColor : "transparent",
+      }}
     >
       <span
         className="text-sm font-bold shrink-0 w-5 text-center"
