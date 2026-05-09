@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, startTransition } from "react";
 import { useRouter } from "next/navigation";
 import YearBadge from "@/components/shared/YearBadge";
 import HomeButton from "@/components/shared/HomeButton";
@@ -11,6 +11,7 @@ import QuestionFooterNav from "@/components/question/QuestionFooterNav";
 interface Option {
   text: string;
   value: string;
+  originalIndex?: number;
 }
 
 interface Question {
@@ -49,17 +50,24 @@ export default function QuestionView({
     Array(questions.length).fill(null)
   );
 
-  // useState initializer는 클라이언트에서만 실행 → hydration 불일치 없음
-  const [shuffledQuestions] = useState(() =>
-    questions.map((q) => ({
-      ...q,
-      options: shuffleArray(q.options.map((opt, i) => ({ ...opt, originalIndex: i }))),
-    }))
-  );
+  const [shuffledQuestions, setShuffledQuestions] = useState(questions);
+  const [isMounted, setIsMounted] = useState(false);
 
-  const currentQuestion = shuffledQuestions[currentIndex];
+  useEffect(() => {
+    startTransition(() => {
+      setIsMounted(true);
+      setShuffledQuestions(
+        questions.map((q) => ({
+          ...q,
+          options: shuffleArray(q.options.map((opt, i) => ({ ...opt, originalIndex: i }))),
+        }))
+      );
+    });
+  }, [questions]);
+
+  const currentQuestion = isMounted ? shuffledQuestions[currentIndex] : questions[currentIndex];
   const currentAnswer = answers[currentIndex];
-  const total = shuffledQuestions.length;
+  const total = isMounted ? shuffledQuestions.length : questions.length;
 
   const handleSelect = (value: string) => {
     setAnswers((prev) => {
@@ -108,9 +116,9 @@ export default function QuestionView({
             </h2>
 
             <div className="flex flex-col gap-4">
-              {currentQuestion.options.map((option, i) => (
+              {(isMounted ? currentQuestion.options : questions[currentIndex].options).map((option, i) => (
                 <QuestionOptionItem
-                  key={option.originalIndex}
+                  key={isMounted ? option.originalIndex : i}
                   index={i}
                   text={option.text}
                   selected={currentAnswer === option.value}
