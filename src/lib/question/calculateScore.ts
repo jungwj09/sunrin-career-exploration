@@ -32,7 +32,7 @@ export function calcClubScore(
   return score;
 }
 
-// 점수 -> 퍼센트 + 순위 정렬 (공동 순위 포함)
+// 점수 -> 퍼센트 + 순위 정렬 (공동 순위 포함 & 밀집 순위 방식)
 export interface RankedItem {
   id: string;
   rank: number;
@@ -45,25 +45,21 @@ export function scoreToRanked(
 ): RankedItem[] {
   const total = Object.values(score).reduce((a, b) => a + b, 0);
 
-  // 모든 id에 대해 percent 계산 (선택 안 된 건 0%)
   const items = allIds.map((id) => ({
     id,
-    count: score[id] ?? 0,
     percent: total === 0 ? 0 : Math.round(((score[id] ?? 0) / total) * 100),
   }));
 
-  // 내림차순 정렬
   items.sort((a, b) => b.percent - a.percent);
 
-  // 공동 순위 계산
+  // 이전 항목과 percent가 다를 때만 rank를 1 증가
   let rank = 1;
-  const ranked: RankedItem[] = [];
-  for (let i = 0; i < items.length; i++) {
+  const ranked: RankedItem[] = items.map((item, i) => {
     if (i > 0 && items[i].percent < items[i - 1].percent) {
-      rank = i + 1;
+      rank += 1;
     }
-    ranked.push({ id: items[i].id, rank, percent: items[i].percent });
-  }
+    return { id: item.id, rank, percent: item.percent };
+  });
 
   return ranked;
 }
