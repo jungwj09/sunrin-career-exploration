@@ -8,8 +8,8 @@ export default function Error({
   return (
     <div className="flex flex-col items-center justify-center min-h-screen px-4">
       <h2 className="text-2xl font-bold text-black mb-4">오류가 발생했습니다</h2>
-      <p className="text-gray-600 mb-6 text-center">
-        문제가 발생했습니다. 다시 시도해주세요.
+      <p className="text-black mb-6 text-center">
+        홈으로 돌아가거나 다시 시도해주세요.
       </p>
       <button
         onClick={reset}
