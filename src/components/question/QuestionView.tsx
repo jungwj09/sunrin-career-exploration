@@ -1,13 +1,31 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import YearBadge from "@/components/shared/YearBadge";
 import HomeButton from "@/components/shared/HomeButton";
 import QuestionProgress from "@/components/question/QuestionProgress";
 import QuestionOptionItem from "@/components/question/QuestionOptionItem";
 import QuestionFooterNav from "@/components/question/QuestionFooterNav";
-import type { MajorQuestionQuestion, MajorQuestionOption } from "@/lib/question/types";
+
+interface Option {
+  text: string;
+  value: string;
+}
+
+interface Question {
+  id: number;
+  text: string;
+  options: Option[];
+}
+
+export interface QuestionViewProps {
+  questions: Question[];
+  accentColor: string;
+  selectedBgColor: string;
+  storageKey: string;
+  resultPath: string;
+}
 
 function shuffleArray<T>(arr: T[]): T[] {
   const result = [...arr];
@@ -18,44 +36,35 @@ function shuffleArray<T>(arr: T[]): T[] {
   return result;
 }
 
-interface ShuffledOption extends MajorQuestionOption {
-  originalIndex: number;
-}
-
-interface MajorQuestionViewProps {
-  questions: MajorQuestionQuestion[];
-  accentColor: string;
-  resultPath: string;
-}
-
-export default function MajorQuestionView({
+export default function QuestionView({
   questions,
   accentColor,
+  selectedBgColor,
+  storageKey,
   resultPath,
-}: MajorQuestionViewProps) {
+}: QuestionViewProps) {
   const router = useRouter();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<(string | null)[]>(
     Array(questions.length).fill(null)
   );
 
-  const shuffledQuestions = useMemo(() => {
-    return questions.map((q) => {
-      const shuffled = shuffleArray(
-        q.options.map((opt, i) => ({ ...opt, originalIndex: i }))
-      ) as ShuffledOption[];
-      return { ...q, options: shuffled };
-    });
-  }, [questions]);
+  // useState initializer는 클라이언트에서만 실행 → hydration 불일치 없음
+  const [shuffledQuestions] = useState(() =>
+    questions.map((q) => ({
+      ...q,
+      options: shuffleArray(q.options.map((opt, i) => ({ ...opt, originalIndex: i }))),
+    }))
+  );
 
   const currentQuestion = shuffledQuestions[currentIndex];
   const currentAnswer = answers[currentIndex];
   const total = shuffledQuestions.length;
 
-  const handleSelect = (major: string) => {
+  const handleSelect = (value: string) => {
     setAnswers((prev) => {
       const next = [...prev];
-      next[currentIndex] = major;
+      next[currentIndex] = value;
       return next;
     });
   };
@@ -74,7 +83,7 @@ export default function MajorQuestionView({
     if (currentIndex < total - 1) {
       setCurrentIndex((i) => i + 1);
     } else {
-      sessionStorage.setItem("major_answers", JSON.stringify(answers));
+      sessionStorage.setItem(storageKey, JSON.stringify(answers));
       router.push(resultPath);
     }
   };
@@ -104,10 +113,10 @@ export default function MajorQuestionView({
                   key={option.originalIndex}
                   index={i}
                   text={option.text}
-                  selected={currentAnswer === option.major}
-                  onClick={() => handleSelect(option.major)}
+                  selected={currentAnswer === option.value}
+                  onClick={() => handleSelect(option.value)}
                   accentColor={accentColor}
-                  selectedBgColor="rgba(241, 89, 35, 0.30)"
+                  selectedBgColor={selectedBgColor}
                 />
               ))}
             </div>
