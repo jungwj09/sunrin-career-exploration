@@ -35,12 +35,10 @@ export default function MajorQuestionView({
 }: MajorQuestionViewProps) {
   const router = useRouter();
   const [currentIndex, setCurrentIndex] = useState(0);
-  // major 값을 직접 저장
   const [answers, setAnswers] = useState<(string | null)[]>(
     Array(questions.length).fill(null)
   );
 
-  // 컴포넌트 마운트 시 한 번만 셔플
   const shuffledQuestions = useMemo(() => {
     return questions.map((q) => {
       const shuffled = shuffleArray(
@@ -76,8 +74,8 @@ export default function MajorQuestionView({
     if (currentIndex < total - 1) {
       setCurrentIndex((i) => i + 1);
     } else {
-      const answersParam = answers.map((a) => a ?? "").join(",");
-      router.push(`${resultPath}?answers=${answersParam}`);
+      sessionStorage.setItem("major_answers", JSON.stringify(answers));
+      router.push(resultPath);
     }
   };
 
@@ -85,7 +83,7 @@ export default function MajorQuestionView({
     <div className="flex flex-col min-h-screen bg-white">
       <div className="flex flex-col flex-1 w-full max-w-97.5 mx-auto">
         <YearBadge align="center" />
-        
+
         <HomeButton />
 
         <main className="flex flex-col flex-1 px-4 pt-6">

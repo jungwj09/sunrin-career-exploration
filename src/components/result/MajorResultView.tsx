@@ -1,7 +1,7 @@
 "use client";
 
-import { useMemo } from "react";
-import { useSearchParams } from "next/navigation";
+import { useMemo, useEffect, useState, startTransition } from "react";
+import { useRouter } from "next/navigation";
 import YearBadge from "@/components/shared/YearBadge";
 import ResultRankCard from "@/components/result/ResultRankCard";
 import ResultMatchBar from "@/components/result/ResultMatchBar";
@@ -12,19 +12,35 @@ import { buildMajorResults, getClubHref } from "@/lib/question/majorResultHelper
 const ALL_MAJOR_IDS = ["infosec", "software", "it-management", "design"];
 
 export default function MajorResultView() {
-  const searchParams = useSearchParams();
-  const answersParam = searchParams.get("answers") ?? "";
+  const router = useRouter();
+  const [answers, setAnswers] = useState<(string | null)[] | null>(null);
 
-  // answers는 major 문자열 배열
-  const answers = useMemo(() => {
-    return answersParam.split(",").map((v) => v === "" ? null : v);
-  }, [answersParam]);
+  useEffect(() => {
+    const raw = sessionStorage.getItem("major_answers");
+    if (!raw) {
+      // 답안 없으면 홈으로
+      router.replace("/");
+      return;
+    }
+    try {
+      const parsed = JSON.parse(raw);
+      startTransition(() => {
+        setAnswers(parsed);
+      });
+    } catch (error) {
+      console.error("Failed to parse major answers:", error);
+      router.replace("/");
+    }
+  }, [router]);
 
   const results = useMemo(() => {
+    if (!answers) return [];
     const score = calcMajorScore(answers);
     const ranked = scoreToRanked(score, ALL_MAJOR_IDS);
     return buildMajorResults(ranked);
   }, [answers]);
+
+  if (!answers) return null;
 
   const topResults = results.filter((r) => r.rank === 1);
 

@@ -47,12 +47,10 @@ export default function ClubQuestionView({
 }: ClubQuestionViewProps) {
   const router = useRouter();
   const [currentIndex, setCurrentIndex] = useState(0);
-  // answers는 셔플된 선지 기준의 index가 아니라 선택된 club 값을 저장
   const [answers, setAnswers] = useState<(string | null)[]>(
     Array(questionData.questions.length).fill(null)
   );
 
-  // 컴포넌트 마운트 시 한 번만 셔플
   const shuffledQuestions = useMemo(() => {
     return questionData.questions.map((q) => {
       const shuffled = shuffleArray(
@@ -90,9 +88,8 @@ export default function ClubQuestionView({
     if (currentIndex < total - 1) {
       setCurrentIndex((i) => i + 1);
     } else {
-      // club 값을 쉼표로 join해서 전달
-      const answersParam = answers.map((a) => a ?? "").join(",");
-      router.push(`/result/club/${major}?answers=${answersParam}`);
+      sessionStorage.setItem("club_answers", JSON.stringify(answers));
+      router.push(`/result/club/${major}`);
     }
   };
 
@@ -100,7 +97,7 @@ export default function ClubQuestionView({
     <div className="flex flex-col min-h-screen bg-white">
       <div className="flex flex-col flex-1 w-full max-w-97.5 mx-auto">
         <YearBadge align="center" />
-        
+
         <HomeButton />
 
         <main className="flex flex-col flex-1 px-4 pt-6">
