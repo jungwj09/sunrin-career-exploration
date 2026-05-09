@@ -21,16 +21,17 @@ export default function ClubResultView({ questionData, profiles, accentColor }: 
   const searchParams = useSearchParams();
   const answersParam = searchParams.get("answers") ?? "";
 
+  // answers는 club 문자열 배열
   const answers = useMemo(() => {
-    return answersParam.split(",").map((v) => (v === "" ? null : Number(v)));
+    return answersParam.split(",").map((v) => v === "" ? null : v);
   }, [answersParam]);
 
   const results = useMemo(() => {
     const allClubIds = profiles.map((p) => p.id);
-    const score = calcClubScore(answers, questionData.questions);
+    const score = calcClubScore(answers);
     const ranked = scoreToRanked(score, allClubIds);
     return buildClubResults(ranked, profiles);
-  }, [answers, questionData, profiles]);
+  }, [answers, profiles]);
 
   const matchBarItems = results.map((r) => ({
     label: r.label,

@@ -1,13 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import YearBadge from "@/components/shared/YearBadge";
 import HomeButton from "@/components/shared/HomeButton";
 import QuestionProgress from "@/components/question/QuestionProgress";
 import QuestionOptionItem from "@/components/question/QuestionOptionItem";
 import QuestionFooterNav from "@/components/question/QuestionFooterNav";
-import type { QuestionData, MajorKey } from "@/lib/question/types";
+import type { QuestionData, MajorKey, QuestionOption } from "@/lib/question/types";
 
 const ACCENT_COLOR: Record<MajorKey, string> = {
   infosec: "var(--infosec)",
@@ -23,6 +23,19 @@ const SELECTED_BG_COLOR: Record<MajorKey, string> = {
   design: "rgba(39, 106, 173, 0.3)",
 };
 
+function shuffleArray<T>(arr: T[]): T[] {
+  const result = [...arr];
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [result[i], result[j]] = [result[j], result[i]];
+  }
+  return result;
+}
+
+interface ShuffledOption extends QuestionOption {
+  originalIndex: number;
+}
+
 interface ClubQuestionViewProps {
   major: MajorKey;
   questionData: QuestionData;
@@ -34,20 +47,31 @@ export default function ClubQuestionView({
 }: ClubQuestionViewProps) {
   const router = useRouter();
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [answers, setAnswers] = useState<(number | null)[]>(
+  // answers는 셔플된 선지 기준의 index가 아니라 선택된 club 값을 저장
+  const [answers, setAnswers] = useState<(string | null)[]>(
     Array(questionData.questions.length).fill(null)
   );
 
+  // 컴포넌트 마운트 시 한 번만 셔플
+  const shuffledQuestions = useMemo(() => {
+    return questionData.questions.map((q) => {
+      const shuffled = shuffleArray(
+        q.options.map((opt, i) => ({ ...opt, originalIndex: i }))
+      ) as ShuffledOption[];
+      return { ...q, options: shuffled };
+    });
+  }, [questionData]);
+
   const accentColor = ACCENT_COLOR[major];
   const selectedBgColor = SELECTED_BG_COLOR[major];
-  const currentQuestion = questionData.questions[currentIndex];
+  const currentQuestion = shuffledQuestions[currentIndex];
   const currentAnswer = answers[currentIndex];
-  const total = questionData.questions.length;
+  const total = shuffledQuestions.length;
 
-  const handleSelect = (optionIndex: number) => {
+  const handleSelect = (club: string) => {
     setAnswers((prev) => {
       const next = [...prev];
-      next[currentIndex] = optionIndex;
+      next[currentIndex] = club;
       return next;
     });
   };
@@ -66,9 +90,8 @@ export default function ClubQuestionView({
     if (currentIndex < total - 1) {
       setCurrentIndex((i) => i + 1);
     } else {
-      const answersParam = answers
-        .map((a) => (a === null ? "" : String(a)))
-        .join(",");
+      // club 값을 쉼표로 join해서 전달
+      const answersParam = answers.map((a) => a ?? "").join(",");
       router.push(`/result/club/${major}?answers=${answersParam}`);
     }
   };
@@ -95,11 +118,11 @@ export default function ClubQuestionView({
             <div className="flex flex-col gap-4">
               {currentQuestion.options.map((option, i) => (
                 <QuestionOptionItem
-                  key={i}
+                  key={option.originalIndex}
                   index={i}
                   text={option.text}
-                  selected={currentAnswer === i}
-                  onClick={() => handleSelect(i)}
+                  selected={currentAnswer === option.club}
+                  onClick={() => handleSelect(option.club)}
                   accentColor={accentColor}
                   selectedBgColor={selectedBgColor}
                 />

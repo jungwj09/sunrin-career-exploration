@@ -8,24 +8,20 @@ import ResultMatchBar from "@/components/result/ResultMatchBar";
 import ResultCta from "@/components/result/ResultCta";
 import { calcMajorScore, scoreToRanked } from "@/lib/question/calculateScore";
 import { buildMajorResults, getClubHref } from "@/lib/question/majorResultHelpers";
-import majorQuestionsRaw from "@/data/major/questions.json";
-import type { MajorQuestionData } from "@/lib/question/types";
 
-const majorQuestions = majorQuestionsRaw as MajorQuestionData;
-
-// questions.json의 option.major 값 전체 목록
 const ALL_MAJOR_IDS = ["infosec", "software", "it-management", "design"];
 
 export default function MajorResultView() {
   const searchParams = useSearchParams();
   const answersParam = searchParams.get("answers") ?? "";
 
+  // answers는 major 문자열 배열
   const answers = useMemo(() => {
-    return answersParam.split(",").map((v) => (v === "" ? null : Number(v)));
+    return answersParam.split(",").map((v) => v === "" ? null : v);
   }, [answersParam]);
 
   const results = useMemo(() => {
-    const score = calcMajorScore(answers, majorQuestions.questions);
+    const score = calcMajorScore(answers);
     const ranked = scoreToRanked(score, ALL_MAJOR_IDS);
     return buildMajorResults(ranked);
   }, [answers]);

@@ -1,13 +1,26 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import YearBadge from "@/components/shared/YearBadge";
 import HomeButton from "@/components/shared/HomeButton";
 import QuestionProgress from "@/components/question/QuestionProgress";
 import QuestionOptionItem from "@/components/question/QuestionOptionItem";
 import QuestionFooterNav from "@/components/question/QuestionFooterNav";
-import type { MajorQuestionQuestion } from "@/lib/question/types";
+import type { MajorQuestionQuestion, MajorQuestionOption } from "@/lib/question/types";
+
+function shuffleArray<T>(arr: T[]): T[] {
+  const result = [...arr];
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [result[i], result[j]] = [result[j], result[i]];
+  }
+  return result;
+}
+
+interface ShuffledOption extends MajorQuestionOption {
+  originalIndex: number;
+}
 
 interface MajorQuestionViewProps {
   questions: MajorQuestionQuestion[];
@@ -22,18 +35,29 @@ export default function MajorQuestionView({
 }: MajorQuestionViewProps) {
   const router = useRouter();
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [answers, setAnswers] = useState<(number | null)[]>(
+  // major 값을 직접 저장
+  const [answers, setAnswers] = useState<(string | null)[]>(
     Array(questions.length).fill(null)
   );
 
-  const currentQuestion = questions[currentIndex];
-  const currentAnswer = answers[currentIndex];
-  const total = questions.length;
+  // 컴포넌트 마운트 시 한 번만 셔플
+  const shuffledQuestions = useMemo(() => {
+    return questions.map((q) => {
+      const shuffled = shuffleArray(
+        q.options.map((opt, i) => ({ ...opt, originalIndex: i }))
+      ) as ShuffledOption[];
+      return { ...q, options: shuffled };
+    });
+  }, [questions]);
 
-  const handleSelect = (optionIndex: number) => {
+  const currentQuestion = shuffledQuestions[currentIndex];
+  const currentAnswer = answers[currentIndex];
+  const total = shuffledQuestions.length;
+
+  const handleSelect = (major: string) => {
     setAnswers((prev) => {
       const next = [...prev];
-      next[currentIndex] = optionIndex;
+      next[currentIndex] = major;
       return next;
     });
   };
@@ -52,9 +76,7 @@ export default function MajorQuestionView({
     if (currentIndex < total - 1) {
       setCurrentIndex((i) => i + 1);
     } else {
-      const answersParam = answers
-        .map((a) => (a === null ? "" : String(a)))
-        .join(",");
+      const answersParam = answers.map((a) => a ?? "").join(",");
       router.push(`${resultPath}?answers=${answersParam}`);
     }
   };
@@ -81,11 +103,11 @@ export default function MajorQuestionView({
             <div className="flex flex-col gap-4">
               {currentQuestion.options.map((option, i) => (
                 <QuestionOptionItem
-                  key={i}
+                  key={option.originalIndex}
                   index={i}
                   text={option.text}
-                  selected={currentAnswer === i}
-                  onClick={() => handleSelect(i)}
+                  selected={currentAnswer === option.major}
+                  onClick={() => handleSelect(option.major)}
                   accentColor={accentColor}
                   selectedBgColor="rgba(241, 89, 35, 0.30)"
                 />
