@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useEffect, useState, startTransition } from "react";
+import { useMemo, useEffect, useState, startTransition, Fragment } from "react";
 import { useRouter } from "next/navigation";
 import YearBadge from "@/components/shared/YearBadge";
 import ResultRankCard from "@/components/result/ResultRankCard";
@@ -18,7 +18,6 @@ export default function MajorResultView() {
   useEffect(() => {
     const raw = sessionStorage.getItem("major_answers");
     if (!raw) {
-      // 답안 없으면 홈으로
       router.replace("/");
       return;
     }
@@ -42,8 +41,6 @@ export default function MajorResultView() {
 
   if (!answers) return null;
 
-  const topResults = results.filter((r) => r.rank === 1);
-
   const matchBarItems = results.map((r) => ({
     label: r.label,
     percent: r.percent,
@@ -57,29 +54,30 @@ export default function MajorResultView() {
 
         <main className="flex flex-col px-4 pt-4 pb-10 gap-4">
           {results.map((item) => (
-            <ResultRankCard
-              key={item.id}
-              rank={item.rank}
-              label={item.label}
-              percent={item.percent}
-              borderColor={`var(${item.colorVar})`}
-              keywords={item.keywords}
-              fits={item.fits}
-              subjects={item.subjects}
-              careers={item.careers}
-            />
+            <Fragment key={item.id}>
+              <ResultRankCard
+                key={item.id}
+                rank={item.rank}
+                label={item.label}
+                percent={item.percent}
+                borderColor={`var(${item.colorVar})`}
+                keywords={item.keywords}
+                fits={item.fits}
+                subjects={item.subjects}
+                careers={item.careers}
+              />
+              {item.rank === 1 && (
+                <ResultCta
+                  key={`cta-${item.id}`}
+                  majorLabel={item.label}
+                  href={getClubHref(item.id)}
+                  accentColor={`var(${item.colorVar})`}
+                />
+              )}
+            </Fragment>
           ))}
 
           <ResultMatchBar items={matchBarItems} />
-
-          {topResults.map((result) => (
-            <ResultCta
-              key={result.id}
-              majorLabel={result.label}
-              href={getClubHref(result.id)}
-              accentColor={`var(${result.colorVar})`}
-            />
-          ))}
         </main>
       </div>
     </div>
