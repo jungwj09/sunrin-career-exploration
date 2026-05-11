@@ -5,6 +5,10 @@ import Footer from "@/components/shared/Footer";
 export const metadata: Metadata = {
   title: "선린인터넷고등학교 진로체험",
   description: "나의 적성에 알맞는 학과/동아리 탐색하기",
+  icons: {
+    icon: "/sunrin.png",
+    shortcut: "/sunrin.png",
+  },
 };
 
 export const viewport = {
