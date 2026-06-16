@@ -4,12 +4,10 @@ interface AppHeaderProps {
   align?: "left" | "center";
 }
 
-export default function AppHeader({
-  align = "center",
-}: AppHeaderProps) {
+export default function AppHeader({ align = "center" }: AppHeaderProps) {
   return (
     <div
-      className={`w-full px-4 pt-12.5 pb-2 flex ${
+      className={`w-full px-4 pt-8 md:pt-10 pb-1 flex ${
         align === "center" ? "justify-center" : "justify-start"
       }`}
     >
@@ -23,7 +21,6 @@ export default function AppHeader({
             className="shrink-0"
             loading="eager"
           />
-
           <span className="text-base font-semibold text-black tracking-tight">
             선린인터넷고 진로체험
           </span>

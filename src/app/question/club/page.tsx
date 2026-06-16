@@ -44,28 +44,21 @@ export default function ClubMajorSelectPage() {
 
   const handleNext = () => {
     const major = MAJORS.find((m) => m.id === selected);
-    if (major) {
-      router.push(major.href);
-    }
-  };
-
-  const handleBack = () => {
-    router.back();
+    if (major) router.push(major.href);
   };
 
   return (
     <div className="flex flex-col min-h-screen bg-white">
-      <div className="flex flex-col flex-1 w-full max-w-97.5 mx-auto">
+      <div className="flex flex-col flex-1 w-full max-w-97.5 md:max-w-xl lg:max-w-2xl mx-auto">
         <YearBadge align="center" />
-        
         <HomeButton />
 
-        <main className="flex flex-col px-4 pt-6">
-          <h2 className="text-xl font-semibold text-black mb-4 text-center">
+        <main className="flex flex-col px-4 md:px-6 pt-6">
+          <h2 className="text-xl md:text-2xl font-semibold text-black mb-6 text-center">
             어느 학과에 관심이 있으신가요?
           </h2>
 
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 md:grid md:grid-cols-2">
             {MAJORS.map((major) => (
               <MajorSelectOption
                 key={major.id}
@@ -78,9 +71,9 @@ export default function ClubMajorSelectPage() {
             ))}
           </div>
         </main>
-        <div className="px-4">
+        <div className="px-4 md:px-6">
           <QuestionFooterNav
-            onPrev={handleBack}
+            onPrev={() => router.back()}
             onNext={handleNext}
             canNext={selected !== null}
           />

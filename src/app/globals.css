@@ -24,7 +24,3 @@ body {
   color: var(--foreground);
   font-family: Pretendard, ui-sans-serif, system-ui;
 }
-
-/* Mobile-first responsive design setup */
-/* Base styles for mobile (390px) */
-/* Desktop styles will be added later with @media queries */

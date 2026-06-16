@@ -10,7 +10,7 @@ export default function QuestionFooterNav({
   canNext,
 }: QuestionFooterNavProps) {
   return (
-    <div className="w-full pb-10 pt-10 flex gap-4">
+    <div className="w-full max-w-4xl mx-auto pb-10 pt-10 lg:pt-25 flex gap-4">
       <button
         onClick={onPrev}
         className="flex-1 py-2.25 rounded-[15px] text-base font-medium text-white bg-(--sunrin-blue)"
