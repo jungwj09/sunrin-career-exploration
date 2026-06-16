@@ -22,7 +22,7 @@ export default function AppHeader({ align = "center" }: AppHeaderProps) {
             loading="eager"
           />
           <span className="text-base font-semibold text-black tracking-tight">
-            선린인터넷고 진로체험
+            선린인터넷고등학교 진로체험
           </span>
         </div>
       </div>
