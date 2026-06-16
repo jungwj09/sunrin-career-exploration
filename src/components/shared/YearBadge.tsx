@@ -25,7 +25,7 @@ export default function AppHeader({
           />
 
           <span className="text-base font-semibold text-black tracking-tight">
-            2026 선린인터넷고 진로체험
+            선린인터넷고 진로체험
           </span>
         </div>
       </div>
